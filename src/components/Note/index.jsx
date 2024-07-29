@@ -14,4 +14,4 @@ export function Note({ data, ...rest }) {
       )}
     </Container>
   );
-}
+} 

@@ -50,8 +50,6 @@ export const Content = styled.div`
   grid-area: content;
   padding: 0 64px;
   overflow-y: auto;
-
-  border: solid 6px saddlebrown;
 `;
 export const NewNote = styled.button`
   grid-area: newnote;

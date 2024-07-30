@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
@@ -19,9 +19,52 @@ export const Container = styled.div`
       font-size: 24px;
     }
   }
-`
+`;
 
 export const Form = styled.form`
   max-width: 340px;
   margin: 30px auto 0;
-`
+`;
+
+export const Avatar = styled.div`
+
+  position: relative;
+  margin: -90px auto 32px;
+
+  width: 186px;
+  height: 186;
+
+  > img {
+    border-radius: 50%;
+    width: 186px;
+    height: 186;
+  }
+
+  > label {
+
+    width: 48px;
+    height: 48px;
+    position: absolute;
+
+    bottom: 7px;
+    right: 7px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.COLORS.ORANGE};
+
+    > input {
+      display: none;
+    }
+
+    > svg {
+      width: 20px;
+      height: 20px;
+      color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
+    }
+  }
+`;

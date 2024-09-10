@@ -8,10 +8,11 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: 250px auto;
   grid-template-rows: 105px 128px auto 64px;
-  grid-template-areas: "brand header" //todo BRAND É O COLUM 250px | HEADER É O COMLUM AUTO.
-    "menu search" // * MENU É O ROWS 105PX | SEARCH É O 128PX
-    "menu content" // ? MENU É O ROWS 128PX | CONTENT É O AUTO
-    "newnote content"; // ! NEW NOTE É O 64px | CONTENT É O AUTO
+  grid-template-areas:
+    "brand header"
+    "menu search"
+    "menu content"
+    "newnote content";
 
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
 `;

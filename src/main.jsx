@@ -1,17 +1,23 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { ThemeProvider } from 'styled-components'
-import GlobalStyles from './styles/global'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { ThemeProvider } from "styled-components";
+import GlobalStyles from "./styles/global";
 
-import theme from './styles/theme'
+import { MyContext } from "./myContext";
 
-import { Routes } from './routes'
+import theme from "./styles/theme";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+import { Routes } from "./routes";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <Routes />
+      // * Uso do MyContent.Provider para envolver os componentes 
+      // * filhos e passar o valor do contexto { jhonatagmail.com}.
+      <MyContext.Provider value={{ email: "jhonatan@gmail.com" }}> 
+        <Routes />
+      </MyContext.Provider>
     </ThemeProvider>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);

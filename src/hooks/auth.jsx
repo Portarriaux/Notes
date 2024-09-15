@@ -1,23 +1,35 @@
-// * Criação do contexto com createContext
-import { useContext } from "react";
-import { createContext } from "react";
+// !! REVISAR E ENTENDER TODO ESSE ARQUIVO.
+import { api } from "../services/api";
+import { createContext, useContext, useState } from "react";
 
 export const AuthContext = createContext({});
-
-//todo: AuthProvider: Define e fornece os dados do contexto para todos os componentes
-//todo: que estão dentro da sua árvore.É o provedor de dados.
 function AuthProvider({ children }) {
+  const [data, setData] = useState({});
+
+  async function signIn({ email, password }) {
+    try {
+      const response = await api.post("/sessions", { email, password });
+      const { user, token } = response.data;
+
+      api.defaults.headers.authorization = `Bearer ${token}`;
+
+      setData({ user, token });
+    } catch (error) {
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("Não foi possivél entrar");
+      }
+    }
+  }
+
   return (
-    <AuthContext.Provider
-      value={{ name: "Jhonatan", email: "jhonatan@gmail.com" }}
-    >
+    <AuthContext.Provider value={{ signIn, user: data.user }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
-// todo: useAuth: É um acesso a esses dados. Ele pega os dados fornecidos pelo
-// todo: AuthProvider e os disponibiliza para o componente que o usa.
 function useAuth() {
   const context = useContext(AuthContext);
 

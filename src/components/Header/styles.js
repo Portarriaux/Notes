@@ -19,7 +19,7 @@ export const Container = styled.header`
 export const Profile = styled(Link)`
   display: flex;
   align-items: center;
-
+  margin-left: 20px;  
   > img {
     width: 56px;
     height: 56px;

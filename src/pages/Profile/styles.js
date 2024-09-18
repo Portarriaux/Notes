@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  border: solid red 2px;
 
   > header {
     width: 100%;
@@ -28,7 +27,6 @@ export const Form = styled.form`
 `;
 
 export const Avatar = styled.div`
-
   position: relative;
   margin: -90px auto 32px;
 
@@ -42,7 +40,6 @@ export const Avatar = styled.div`
   }
 
   > label {
-
     width: 48px;
     height: 48px;
     position: absolute;

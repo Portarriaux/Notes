@@ -9,12 +9,18 @@ import { Button } from "../../components/Button";
 import { Container, Form } from "./styles";
 
 export function New() {
+  // Estado para armazenar a lista de links adicionados
   const [links, setLinks] = useState([]);
+  // Estado para armazenar o valor temporário do novo link que está sendo digitado no campo de input
   const [newLink, setNewLink] = useState("");
 
   function handleAddLink() {
     setLinks((preveState) => [...preveState, newLink]);
     setNewLink("");
+  }
+
+  function handleRemoveLink(deleted) {
+    setLinks((preveState) => preveState.filter((link) => link !== deleted));
   }
 
   return (
@@ -33,7 +39,11 @@ export function New() {
 
           <Section title="Links úteis">
             {links.map((link, index) => (
-              <NoteItem key={String(index)} value={link} onClick={() => {}} />
+              <NoteItem
+                key={String(index)}
+                value={link}
+                onClick={() => handleRemoveLink(link)}
+              />
             ))}
 
             <NoteItem

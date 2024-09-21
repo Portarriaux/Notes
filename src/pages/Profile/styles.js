@@ -31,12 +31,13 @@ export const Avatar = styled.div`
   margin: -90px auto 32px;
 
   width: 186px;
-  height: 186;
+  height: 186px; /* Corrigido para incluir a unidade de medida */
 
   > img {
     border-radius: 50%;
-    width: 186px;
-    height: 186;
+    width: 100%; /* Preenche o contêiner sem distorcer */
+    height: 100%; /* Preenche o contêiner sem distorcer */
+    object-fit: cover; /* Ajusta a imagem para cobrir o contêiner mantendo o aspecto */
   }
 
   > label {

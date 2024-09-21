@@ -20,8 +20,8 @@ export function Profile() {
     ? `${api.defaults.baseURL}/files/${user.avatar}`
     : avatarPlaceholder;
 
-  const [avatar, setAvatar] = useState(avatarUrl); 
-  const [avatarFile, setAvatarFile] = useState(null); 
+  const [avatar, setAvatar] = useState(avatarUrl);
+  const [avatarFile, setAvatarFile] = useState(null);
 
   async function handleUpdate() {
     const user = {

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Header } from "../../components/Header";
 import { Link } from "react-router-dom";
 import { Input } from "../../components/Input";
@@ -5,10 +6,17 @@ import { TextArea } from "../../components/Textarea";
 import { Section } from "../../components/Section";
 import { NoteItem } from "../../components/NoteItem";
 import { Button } from "../../components/Button";
-
 import { Container, Form } from "./styles";
 
 export function New() {
+  const [links, setLinks] = useState([]);
+  const [newLink, setNewLink] = useState("");
+
+  function handleAddLink() {
+    setLinks((preveState) => [...preveState, newLink]);
+    setNewLink("");
+  }
+
   return (
     <Container>
       <Header />
@@ -18,15 +26,23 @@ export function New() {
           <header>
             <h1>Criar nota</h1>
             <Link to="/">Voltar</Link>
-
           </header>
 
           <Input placeholder="Título" />
           <TextArea placeholder="Observações" />
 
           <Section title="Links úteis">
-            <NoteItem value="https:/github.com.br" />
-            <NoteItem isNew placeholder="Novo link" />
+            {links.map((link, index) => (
+              <NoteItem key={String(index)} value={link} onClick={() => {}} />
+            ))}
+
+            <NoteItem
+              isNew //todo: Indica que este é um novo item (link ainda não adicionado)
+              placeholder="Novo link" //todo: O texto exibido no campo de input
+              value={newLink} //todo: O valor atual digitado pelo usuário no campo
+              onChange={(e) => setNewLink(e.target.value)} //todo: Atualiza o estado "newLink" com o texto digitado
+              onClick={handleAddLink} //todo: Quando clicado, chama a função "handleAddLink" para adicionar o link à lista
+            />
           </Section>
 
           <Section title="Marcadores">
@@ -36,7 +52,7 @@ export function New() {
             </div>
           </Section>
 
-          <Button title="Salvar"/>
+          <Button title="Salvar" />
         </Form>
       </main>
     </Container>

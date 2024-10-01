@@ -71,7 +71,7 @@ function AuthProvider({ children }) {
       setData({
         token,
         user: JSON.parse(user),
-      });
+      }); // teste
     }
   }, []);
 

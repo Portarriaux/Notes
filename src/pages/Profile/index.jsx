@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
 import { FiArrowLeft, FiUser, FiMail, FiLock, FiCamera } from "react-icons/fi";
 import avatarPlaceholder from "../../assets/avatar_placeholder.svg";
@@ -8,14 +9,17 @@ import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 
 import { Container, Form, Avatar } from "./styles";
+
 export function Profile() {
   const { user, updateProfile } = useAuth();
 
-  const [name, setName] = useState(avatarUrl);
+  // Inicializando o estado com valores apropriados
+  const [name, setName] = useState(user.name || ""); // use user.name como valor padrão
   const [email, setEmail] = useState(user.email);
-  const [passwordOld, setPasswordOld] = useState();
-  const [passwordNew, setPasswordNew] = useState();
+  const [passwordOld, setPasswordOld] = useState("");
+  const [passwordNew, setPasswordNew] = useState("");
 
+  // Definindo avatarUrl depois que os estados são inicializados
   const avatarUrl = user.avatar
     ? `${api.defaults.baseURL}/files/${user.avatar}`
     : avatarPlaceholder;
@@ -23,30 +27,38 @@ export function Profile() {
   const [avatar, setAvatar] = useState(avatarUrl);
   const [avatarFile, setAvatarFile] = useState(null);
 
+  const navigate = useNavigate()
+
+  function handleBack() {
+    navigate(-1);
+  }
+
   async function handleUpdate() {
-    const user = {
+    const updated = {
       name,
       email,
       password: passwordNew,
       old_password: passwordOld,
     };
 
-    await updateProfile({ user, avatarFile });
+    const userUpdated = Object.assign( user, updated)
+
+    await updateProfile({ user: userUpdated, avatarFile });
   }
 
   function handleChangeAvatar(event) {
-    const file = event.target.files[0]; //todo: Pega o primeiro arquivo (imagem) selecionado.
-    setAvatarFile(file); //todo:  Armazena o arquivo no estado avatarFile.
-    const imagePreview = URL.createObjectURL(file); //todo: Gera uma URL temporária para pré-visualização.
-    setAvatar(imagePreview); //todo: Atualiza a pré-visualização do avatar com a nova imagem.
+    const file = event.target.files[0]; // pega o primeiro arquivo (imagem) selecionado.
+    setAvatarFile(file); // armazena o arquivo no estado avatarFile.
+    const imagePreview = URL.createObjectURL(file); // gera uma URL temporária para pré-visualização.
+    setAvatar(imagePreview); // atualiza a pré-visualização do avatar com a nova imagem.
   }
 
   return (
     <Container>
       <header>
-        <Link to="/">
+        <button type="button" onClick={handleBack}>
           <FiArrowLeft />
-        </Link>
+        </button>
       </header>
 
       <Form>
@@ -84,7 +96,7 @@ export function Profile() {
         />
 
         <Input
-          placeholder="Nova atual"
+          placeholder="Nova senha"
           type="password"
           icon={FiLock}
           onChange={(e) => setPasswordNew(e.target.value)}
